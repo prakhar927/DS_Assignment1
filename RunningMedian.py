@@ -156,11 +156,8 @@ class Heap(object):
 
 		return self.median()
 
-	def minmax(self):
-		print (self.lower)
-		print (self.upper)
-
 input_file = open("STDIN", "r")
+output_file = open("STDOUT", "w")
 
 #Counting Number of lines in input file
 ln = 0
@@ -174,13 +171,14 @@ input_file.seek(0,0)
 a = []
 a_i = 0
 for a_i in range(ln):
-	a_t = int(input_file.readline().strip())
-	a.append(a_t)
+	a_i = int(input_file.readline().strip())
+	a.append(a_i)
+input_file.close();
 
 heap = Heap()
 
 for number in a:
 	mean = heap.insert(number)
-	print ("%.1f" % mean)
+	output_file.write("%.1f" % mean+"\n")
 
-input_file.close();
+output_file.close()
