@@ -160,11 +160,21 @@ class Heap(object):
 		print (self.lower)
 		print (self.upper)
 
-n = int(input().strip())
+input_file = open("STDIN", "r")
+
+#Counting Number of lines in input file
+ln = 0
+for i in input_file.read().split("\n"):
+    if i:
+        ln += 1
+
+#Moving cursor to top of the file
+input_file.seek(0,0)
+
 a = []
 a_i = 0
-for a_i in range(n):
-	a_t = int(input().strip())
+for a_i in range(ln):
+	a_t = int(input_file.readline().strip())
 	a.append(a_t)
 
 heap = Heap()
@@ -172,3 +182,5 @@ heap = Heap()
 for number in a:
 	mean = heap.insert(number)
 	print ("%.1f" % mean)
+
+input_file.close();
