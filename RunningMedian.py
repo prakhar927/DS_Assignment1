@@ -35,14 +35,6 @@ class Heap(object):
 			self.lower[c], self.lower[t] = self.lower[t], self.lower[c]
 			c = t
 
-	def max_insert(self, value):
-		self.lower.append(value)
-		parent_index = self.find_parent(len(self.lower) - 1)
-        
-		if parent_index != -1:
-			if self.lower[parent_index] < value:
-				self.max_up(len(self.lower)-1, parent_index)
-
 	def min_up(self, c, t):
 		self.upper[c], self.upper[t] = self.upper[t], self.upper[c]
 		c = t
@@ -122,12 +114,13 @@ class Heap(object):
 
 		return pop_value
 
-	def balance(self):
-		if abs(len(self.lower) - len(self.upper)) >= 2:
-			if len(self.upper) < len(self.lower):
-				self.min_insert(self.max_pop())
-			else:
-				self.max_insert(self.min_pop())
+	def max_insert(self, value):
+		self.lower.append(value)
+		parent_index = self.find_parent(len(self.lower) - 1)
+        
+		if parent_index != -1:
+			if self.lower[parent_index] < value:
+				self.max_up(len(self.lower)-1, parent_index)
 
 
 	def min_insert(self, value):
@@ -137,6 +130,13 @@ class Heap(object):
 		if parent_index != -1:
 			if self.upper[parent_index] > value:
 				self.min_up(len(self.upper)-1, parent_index)
+
+	def balance(self):
+		if abs(len(self.lower) - len(self.upper)) >= 2:
+			if len(self.upper) < len(self.lower):
+				self.min_insert(self.max_pop())
+			else:
+				self.max_insert(self.min_pop())
 
 	def median(self):
 		if len(self.lower) == len(self.upper):
